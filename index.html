@@ -6,13 +6,58 @@
 
     <body>
         <h1>Upload Coin Images</h1>
+
+        <div>
+            Please note that the information given is <b>not conclusive</b> and is intended as a <b>starting point</b> for your research.
+        </div>
         
         <form id="coin-form" enctype="multipart/form-data">
             <input name="images" type="file" multiple>
             <input type="submit">
         </form>
 
-        <div id="result"></div>
+        <div class="loaderDiv">
+            <div class="loader"></div>
+            <div>Analysing Coin</div>
+        </div>
+
+        <div id="result">
+            <div id="summary">
+                <h3>Summary</h3>
+                <div id="summary-paragraph"></div>
+            </div>
+
+            <div>
+                <table id="coin-stats-table">
+                    <tbody>
+                        <tr>
+                            <td>Country</td>
+                            <td id="country-val"></td>
+                        </tr>
+                        <tr>
+                            <td>Year</td>
+                            <td id="year-val"></td>
+                        </tr>
+                        <tr>
+                            <td>Denomination</td>
+                            <td id="denomination-val"></td>
+                        </tr>
+                        <tr>
+                            <td>Materials</td>
+                            <td id="materials-val"></td>
+                        </tr>
+                        <tr>
+                            <td>Rarity (1-10)</td>
+                            <td id="rarity-val"></td>
+                        </tr>
+                        <tr>
+                            <td>Est. Value</td>
+                            <td id="est-value-val"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
         <script src="/static/js/script.js"></script>
     </body>

@@ -1,5 +1,11 @@
 # coinlens
 
+## To Do
+
+- Upload/Capture images with Preview
+- Coin images displayed with description and text transcription
+- Download Report
+
 ## Example Coins
 
 1) Elizabeth II 1965 Winston Churchill Crown Coin - £2

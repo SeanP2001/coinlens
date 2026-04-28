@@ -1,4 +1,5 @@
 import os
+import json
 from dotenv import load_dotenv
 import time
 
@@ -28,6 +29,36 @@ api_key = os.getenv("GEMINI_API_KEY")
 @app.get("/test/")
 def first_example():
     return {"message": "Hello, FastAPI!"}
+
+@app.post("/dummy-analyse-coin/")
+async def dummy_analyse_coin(images: list[UploadFile]):
+    
+    time.sleep(2)
+    
+    return {
+        "country": "Canada",
+        "year": 2017,
+        "denomination": "5 Dollars",
+        "materials": [
+            {
+                "material": "Silver",
+                "percentage": 99.99
+            },
+            {
+                "material": "Cheese",
+                "percentage": 0.001
+            }
+        ],
+        "estimated_value": 24.50,
+        "rarity": 3,
+        "obverse_image": "Effigy of Queen Elizabeth II facing right.",
+        "obverse_text": "ELIZABETH II 5 DOLLARS 2017",
+        "reverse_image": "Stylized maple leaf.",
+        "reverse_text": "CANADA 9999 FINE SILVER 1 OZ ARGENT PUR 9999",
+        "confidence": 95,
+        "context": "This is a 2017 Canadian Silver Maple Leaf coin. It is identified by the effigy of Queen Elizabeth II and the \"5 DOLLARS 2017\" inscription on the obverse, and the iconic maple leaf design with \"CANADA\" and \"FINE SILVER 1 OZ ARGENT PUR 9999\" on the reverse. These coins are known for their high purity (99.99% silver) and are primarily valued for their silver bullion content, which is 1 troy ounce. The estimated value is based on the current market spot price for 1 troy ounce of silver, plus a typical small premium for a bullion coin. No further steps are needed for identification as all markings are clear and standard for this type of coin."
+    }
+
 
 # Analyse Coin Endpoint
 # Take two images of the coin, prompt gemini and return a json of the coin data
@@ -69,15 +100,15 @@ async def analyse_coin(images: list[UploadFile]):
     client = genai.Client(api_key=api_key)
 
     # Try multiple times, each time it fails (due to the api being unavailable), wait exponentially longer
-    for attempt in range(25):
+    for attempt in range(1):
         try:
-            return client.models.generate_content(
+            return json.loads(client.models.generate_content(
                 model="gemini-2.5-flash",
                 contents=[prompt, image1, image2],
                 config={
                     "response_mime_type": "application/json",
                 },
-            ).text
+            ).text)
         except Exception as e:
             if "503" in str(e):
                 time.sleep(2 ** attempt)
