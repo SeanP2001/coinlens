@@ -4,7 +4,8 @@ import time
 
 from fastapi import FastAPI
 from fastapi import FastAPI, File, UploadFile
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from google import genai
 from io import BytesIO
@@ -12,6 +13,9 @@ from PIL import Image
 
 # creating app
 app = FastAPI()
+
+# Mount the "static" directory at the /static path
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Load any local environment variables
 load_dotenv(".env")
@@ -47,7 +51,13 @@ async def analyse_coin(images: list[UploadFile]):
     - context: A short paragraph explaining the reasoning behind why the coin has been identified and valued in this way. If applicable, mention further steps to prove or disprove the identification (string)
     
     If any of the nullable fields are not relevant, populate the value with null.
+    
+    Return ONLY valid JSON. Do not include markdown or formatting.
     """
+    
+    # Must be 2 images provided
+    if len(images) != 2:
+        return {"error": "Please upload exactly 2 images"}
 
     # Read files
     image_bytes_1 = await images[0].read()
@@ -63,8 +73,11 @@ async def analyse_coin(images: list[UploadFile]):
         try:
             return client.models.generate_content(
                 model="gemini-2.5-flash",
-                contents=[prompt, image1, image2]
-            )
+                contents=[prompt, image1, image2],
+                config={
+                    "response_mime_type": "application/json",
+                },
+            ).text
         except Exception as e:
             if "503" in str(e):
                 time.sleep(2 ** attempt)
@@ -77,15 +90,4 @@ async def analyse_coin(images: list[UploadFile]):
 # Main endpoint serves a HTML form
 @app.get("/")
 async def main():
-    content = """
-<body style="font-family: system-ui, sans-serif;">
-<div style="text-align: center">
-    <h1>Upload Coin Images</h1>
-    <form action="/analyse-coin/" enctype="multipart/form-data" method="post">
-        <input name="images" type="file" multiple>
-        <input type="submit">
-    </form>
-</div>
-</body>
-    """
-    return HTMLResponse(content=content)
+    return FileResponse('index.html')

@@ -1,0 +1,26 @@
+/* ----------------- V A R I A B L E S   &   G L O B A L S ----------------- */
+:root {
+    --bg-primary: #fdfcf9;
+    --bg-secondary: #bbbbbb;
+
+    --brand-primary: #d1af46;
+    --brand-secondary: #e4c258;
+    --brand-tertiary: #e9d493;
+    
+    --light-text: #ebe9fc;
+    --dark-text: black;
+
+    --radius: 10px;
+    --gap: 10px;
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    background-color: var(--bg-primary);
+    margin: 0; /* reset default body margin */
+    text-align: center;
+}
+
+/* ------------------------------ L A Y O U T ------------------------------ */
+
+/* -------------------------- C O M P O N E N T S -------------------------- */

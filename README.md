@@ -17,12 +17,12 @@ pip install -r requirements.txt
 
 Run the backend application
 ```bash
-coinlens % fastapi run backend.py
+coinlens % fastapi run main.py
 ```
 
 Send a request to the endpoint
 ```bash
-curl -X 'GET' 'http://0.0.0.0:8000/' -H 'accept: application/json'
+curl -X 'GET' 'http://127.0.0.1:8000/test/' -H 'accept: application/json'
 ```
 
 Ensure the following is received
