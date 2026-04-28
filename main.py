@@ -72,7 +72,7 @@ async def analyse_coin(images: list[UploadFile]):
     - year: The year the coin was minted (integer)
     - denomination: The name given to a coin of this value (string)
     - materials: A list of up to 3 metals found within the coin, each represented as an object with a material (string) and a percentage (float)
-    - estimated_value: The estimated value of the coin in GBP (float)
+    - estimated_value: The current estimated value of the coin in GBP (float)
     - rarity: On a scale from 1 (common) to 10 (extremely rare), how rare is this coin (integer)
     - obverse_image: A very short description of the image on the obverse side of the coin (string) - nullable
     - obverse_text: A transcript of the text on the obverse side of the coin (string) - nullable
@@ -100,7 +100,7 @@ async def analyse_coin(images: list[UploadFile]):
     client = genai.Client(api_key=api_key)
 
     # Try multiple times, each time it fails (due to the api being unavailable), wait exponentially longer
-    for attempt in range(1):
+    for attempt in range(25):
         try:
             return json.loads(client.models.generate_content(
                 model="gemini-2.5-flash",

@@ -6,7 +6,18 @@ document.getElementById("coin-form").addEventListener("submit", async (e) => {
     const form = e.target;
     const formData = new FormData(form);
 
-    console.log(formData);
+    const fileInput = form.querySelector('input[name="images"]');
+    const files = fileInput.files;
+
+    // Ensure that exactly 2 images are given
+    const errorDiv = document.getElementById("form-error");
+    if (files.length !== 2) {
+        errorDiv.innerText = "Please upload exactly 2 images (front and back of the coin).";
+        return;
+    }
+    else {
+        errorDiv.innerText = "";
+    }
 
     try {
         // Show the loader while waiting for the response
@@ -28,8 +39,9 @@ document.getElementById("coin-form").addEventListener("submit", async (e) => {
         // Print the data to the console
         console.log(data);
 
-        // Render the data on the page
+        // Render the data on the page (and make visible)
         renderData(data);
+        document.getElementById("result").classList.add("active");
 
     } catch (err) {
         console.error("Error:", err);
@@ -38,8 +50,8 @@ document.getElementById("coin-form").addEventListener("submit", async (e) => {
 });
 
 function renderData(data) {
-    // Populate the summary paragraph
-    document.getElementById("summary-paragraph").innerText = data.context;
+    // Populate the context paragraph
+    document.getElementById("context-paragraph").innerText = data.context;
 
     // Populate the table
     document.getElementById("country-val").innerText = data.country;

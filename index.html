@@ -5,57 +5,77 @@
     </head>
 
     <body>
-        <h1>Upload Coin Images</h1>
+        <!-- Page container: controls width + centering -->
+        <div class="container stack">
 
-        <div>
-            Please note that the information given is <b>not conclusive</b> and is intended as a <b>starting point</b> for your research.
-        </div>
-        
-        <form id="coin-form" enctype="multipart/form-data">
-            <input name="images" type="file" multiple>
-            <input type="submit">
-        </form>
-
-        <div class="loaderDiv">
-            <div class="loader"></div>
-            <div>Analysing Coin</div>
-        </div>
-
-        <div id="result">
-            <div id="summary">
-                <h3>Summary</h3>
-                <div id="summary-paragraph"></div>
+            <!-- Header Section -->
+            <div>
+                <h1>CoinLens</h1>
+                <div class="muted">
+                    Please note that the information given is <b>not conclusive</b> and is intended as a <b>starting point</b> for your research.
+                </div>
+            </div>
+            
+            <!-- Form Section Card -->
+            <div class="card stack">
+                <div>Upload images of both sides of the coin</div>
+                <div id="form-error" class="muted"></div>
+                <form id="coin-form" enctype="multipart/form-data">
+                    <input name="images" type="file" multiple>
+                    <input type="submit" value="Identify Coin">
+                </form>
             </div>
 
-            <div>
-                <table id="coin-stats-table">
-                    <tbody>
-                        <tr>
-                            <td>Country</td>
-                            <td id="country-val"></td>
-                        </tr>
-                        <tr>
-                            <td>Year</td>
-                            <td id="year-val"></td>
-                        </tr>
-                        <tr>
-                            <td>Denomination</td>
-                            <td id="denomination-val"></td>
-                        </tr>
-                        <tr>
-                            <td>Materials</td>
-                            <td id="materials-val"></td>
-                        </tr>
-                        <tr>
-                            <td>Rarity (1-10)</td>
-                            <td id="rarity-val"></td>
-                        </tr>
-                        <tr>
-                            <td>Est. Value</td>
-                            <td id="est-value-val"></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- Loader (visible while waiting for results) -->
+            <div class="loaderDiv">
+                <div class="loader"></div>
+                <div>Analysing Coin</div>
+            </div>
+
+            <!-- Result Section Card -->
+            <div id="result" class="card">
+
+                <!-- Layout wrapper (for responsive mobile grid) -->
+                <div class="results-layout">
+
+                    <div id="context">
+                        <h3>Overview</h3>
+                        <div id="context-paragraph"></div>
+                    </div>
+
+                    <div>
+                        <h3>Details</h3>
+                        <table id="coin-attributes-table">
+                            <tbody>
+                                <tr>
+                                    <td>Country</td>
+                                    <td id="country-val"></td>
+                                </tr>
+                                <tr>
+                                    <td>Year</td>
+                                    <td id="year-val"></td>
+                                </tr>
+                                <tr>
+                                    <td>Denomination</td>
+                                    <td id="denomination-val"></td>
+                                </tr>
+                                <tr>
+                                    <td>Materials</td>
+                                    <td id="materials-val"></td>
+                                </tr>
+                                <tr>
+                                    <td>Rarity (1-10)</td>
+                                    <td id="rarity-val"></td>
+                                </tr>
+                                <tr>
+                                    <td>Est. Value</td>
+                                    <td id="est-value-val"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
         </div>
 

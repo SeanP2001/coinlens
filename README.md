@@ -5,6 +5,12 @@
 - Upload/Capture images with Preview
 - Coin images displayed with description and text transcription
 - Download Report
+- Gracefully show errors
+- Local backup model?
+- Log all coins in a db 
+- Cache to only get requests for new coins
+- Minimise token usage
+- Prompt Engineer to improve accuracy
 
 ## Example Coins
 

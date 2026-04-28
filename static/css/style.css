@@ -11,27 +11,95 @@
     --dark-text: black;
 
     --radius: 10px;
-    --gap: 10px;
 }
 
 body {
     font-family: system-ui, sans-serif;
-    background-color: var(--bg-primary);
+    background: var(--bg-primary);
     margin: 0; /* reset default body margin */
-    text-align: center;
 }
 
-table, th, td {
-    text-align: left;
-    border: 1px solid black;
-    border-collapse: collapse; /* single border line */
+.page-section {
+    margin-top: 20px;
+}
+
+
+/* -------------------------- T Y P O G R A P H Y -------------------------- */
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.muted {
+    color: #666; 
+    font-size: 0.9rem;
 }
 
 /* ------------------------------ L A Y O U T ------------------------------ */
 
+@media (min-width: 768px) {
+    .results-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* split into two columns */
+        gap: 20px;
+    }
+}
+
+/* Wrap the whole page content in this */
+.container {
+    max-width: 800px;      /* prevents content stretching too wide */
+    margin: 0 auto;        /* centers horizontally */
+    padding: 20px;         /* space from screen edges (important on mobile) */
+
+}
+
+/* Apply spacing between all children */
+.stack > * + * {
+    margin-top: 20px; /* consistent vertical rhythm */
+}
+
+/* CARD */
+.card {
+    background: white;                  /* separates from page background */
+    padding: 20px;                     /* internal spacing */
+    border-radius: var(--radius);      /* soft corners */
+    border: 1px solid #e5e5e5;         /* subtle outline (better than harsh borders) */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* very subtle depth */
+}
+
 /* -------------------------- C O M P O N E N T S -------------------------- */
 
-/* RESULTS */
+/* FORM */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--radius);
+}
+
+button, input[type="submit"] {
+    padding: 10px;
+    background: var(--brand-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+button, input[type="submit"]:hover {
+    background: var(--brand-secondary); /* Highlight when the user hovers over the button */
+}
 
 
 /* LOADER */
@@ -58,4 +126,30 @@ table, th, td {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* RESULTS */
+#result {
+    display: none;
+}
+
+#result.active {
+    display: block;
+}
+
+
+/* TABLE */
+#coin-attributes-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#coin-attributes-table td {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee; /* subtle separators */
+}
+
+#coin-attributes-table td:first-child {
+    font-weight: 500; /* labels slightly stronger */
+    color: #555;
 }
