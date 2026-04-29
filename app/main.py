@@ -1,6 +1,5 @@
 import os
 import json
-from dotenv import load_dotenv
 import time
 
 from fastapi import FastAPI
@@ -16,20 +15,20 @@ from PIL import Image
 app = FastAPI()
 
 # Mount the "static" directory at the /static path
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-# Load any local environment variables
-load_dotenv(".env")
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 # Get the API key from the environment variables
 api_key = os.getenv("GEMINI_API_KEY")
-
+if not api_key:
+    raise RuntimeError("GEMINI_API_KEY is not set")
 
 # Test API Endpoint
 @app.get("/test/")
 def first_example():
     return {"message": "Hello, FastAPI!"}
 
+# Dummy Endpoint For Testing 
+# (Faster and prevents wasting tokens)
 @app.post("/dummy-analyse-coin/")
 async def dummy_analyse_coin(images: list[UploadFile]):
     
@@ -104,7 +103,7 @@ async def analyse_coin(images: list[UploadFile]):
     client = genai.Client(api_key=api_key)
 
     # Try multiple times, each time it fails (due to the api being unavailable), wait exponentially longer
-    for attempt in range(25):
+    for attempt in range(5):
         try:
             return json.loads(client.models.generate_content(
                 model="gemini-2.5-flash",
@@ -114,15 +113,18 @@ async def analyse_coin(images: list[UploadFile]):
                 },
             ).text)
         except Exception as e:
+            print("Type of Exception:", type(e))
+            print("Message:", e)
             if "503" in str(e):
                 time.sleep(2 ** attempt)
+                print
             else:
                 raise
     
-    return None
+    return { "error": "Service temporarily unavailable" }
 
 
 # Main endpoint serves a HTML form
 @app.get("/")
 async def main():
-    return FileResponse('index.html')
+    return FileResponse('app/templates/index.html')

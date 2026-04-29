@@ -46,7 +46,6 @@ document.getElementById("coin-form").addEventListener("submit", async (e) => {
 
     } catch (err) {
         console.error("Error:", err);
-
     }
 });
 
