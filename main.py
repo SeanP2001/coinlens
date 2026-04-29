@@ -51,9 +51,11 @@ async def dummy_analyse_coin(images: list[UploadFile]):
         ],
         "estimated_value": 24.50,
         "rarity": 3,
-        "obverse_image": "Effigy of Queen Elizabeth II facing right.",
+        "obverse_image_no": 1,
+        "obverse_image_desc": "Effigy of Queen Elizabeth II facing right.",
         "obverse_text": "ELIZABETH II 5 DOLLARS 2017",
-        "reverse_image": "Stylized maple leaf.",
+        "reverse_image_no": 2,
+        "reverse_image_desc": "Stylized maple leaf.",
         "reverse_text": "CANADA 9999 FINE SILVER 1 OZ ARGENT PUR 9999",
         "confidence": 95,
         "context": "This is a 2017 Canadian Silver Maple Leaf coin. It is identified by the effigy of Queen Elizabeth II and the \"5 DOLLARS 2017\" inscription on the obverse, and the iconic maple leaf design with \"CANADA\" and \"FINE SILVER 1 OZ ARGENT PUR 9999\" on the reverse. These coins are known for their high purity (99.99% silver) and are primarily valued for their silver bullion content, which is 1 troy ounce. The estimated value is based on the current market spot price for 1 troy ounce of silver, plus a typical small premium for a bullion coin. No further steps are needed for identification as all markings are clear and standard for this type of coin."
@@ -74,9 +76,11 @@ async def analyse_coin(images: list[UploadFile]):
     - materials: A list of up to 3 metals found within the coin, each represented as an object with a material (string) and a percentage (float)
     - estimated_value: The current estimated value of the coin in GBP (float)
     - rarity: On a scale from 1 (common) to 10 (extremely rare), how rare is this coin (integer)
-    - obverse_image: A very short description of the image on the obverse side of the coin (string) - nullable
+    - obverse_image_no: Which image (1 or 2) shows the obverse side of the coin (integer)
+    - obverse_image_desc: A very short description of the image on the obverse side of the coin (string) - nullable
     - obverse_text: A transcript of the text on the obverse side of the coin (string) - nullable
-    - reverse_image: A very short description of the image on the reverse side of the coin (string) - nullable
+    - reverse_image_no: Which image (1 or 2) shows the reverse side of the coin (integer)
+    - reverse_image_desc: A very short description of the image on the reverse side of the coin (string) - nullable
     - reverse_text: A transcript of the text on the reverse side of the coin (string) - nullable
     - confidence: On a scale from 0 (not confident) to 100 (certain) how confident are you in your analysis and valuation of this coin (integer)
     - context: A short paragraph explaining the reasoning behind why the coin has been identified and valued in this way. If applicable, mention further steps to prove or disprove the identification (string)

@@ -40,6 +40,7 @@ document.getElementById("coin-form").addEventListener("submit", async (e) => {
         console.log(data);
 
         // Render the data on the page (and make visible)
+        renderImagesWithText(files, data);
         renderData(data);
         document.getElementById("result").classList.add("active");
 
@@ -71,4 +72,28 @@ function renderData(data) {
         currency: 'GBP'
     });
     document.getElementById("est-value-val").innerText = estValStr;
+}
+
+function renderImagesWithText(files, data) {
+    // Get the image elements from the page
+    const obverseImg = document.getElementById("obverse-img");
+    const reverseImg = document.getElementById("reverse-img");
+    
+    // Get the image files from the form 
+    // The data from the LLM shows which image was identified as each side (obverse or reverse)
+    const obverseFile = files[data.obverse_image_no - 1];
+    const reverseFile = files[data.reverse_image_no - 1];
+
+    // Create a temporary in-memory URL for each image
+    // And point the image element source to these URLs
+    obverseImg.src = URL.createObjectURL(obverseFile);
+    reverseImg.src = URL.createObjectURL(reverseFile);
+
+    // Populate the descriptions
+    document.getElementById("obverse-description-val").innerText = data.obverse_image_desc
+    document.getElementById("reverse-description-val").innerText = data.reverse_image_desc
+
+    // Populate the transcriptions
+    document.getElementById("obverse-transcription-val").innerText = data.obverse_text
+    document.getElementById("reverse-transcription-val").innerText = data.reverse_text
 }

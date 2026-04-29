@@ -138,6 +138,16 @@ button, input[type="submit"]:hover {
 }
 
 
+/* IMAGES */
+#obverse-img, 
+#reverse-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;   /* forces square */
+    object-fit: cover;     /* crop to fill square */
+    border-radius: var(--radius);
+}
+
+
 /* TABLE */
 #coin-attributes-table {
     width: 100%;
@@ -145,7 +155,7 @@ button, input[type="submit"]:hover {
 }
 
 #coin-attributes-table td {
-    padding: 8px 0;
+    padding: 8px 4px;
     border-bottom: 1px solid #eee; /* subtle separators */
 }
 
