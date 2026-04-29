@@ -30,7 +30,7 @@ def first_example():
 # Dummy Endpoint For Testing 
 # (Faster and prevents wasting tokens)
 @app.post("/dummy-analyse-coin/")
-async def dummy_analyse_coin(images: list[UploadFile]):
+async def dummy_analyse_coin(image1: UploadFile, image2: UploadFile):
     
     time.sleep(2)
     
@@ -64,7 +64,7 @@ async def dummy_analyse_coin(images: list[UploadFile]):
 # Analyse Coin Endpoint
 # Take two images of the coin, prompt gemini and return a json of the coin data
 @app.post("/analyse-coin/")
-async def analyse_coin(images: list[UploadFile]):
+async def analyse_coin(image1: UploadFile, image2: UploadFile):
 
     prompt = """
     The two images show the obverse and reverse sides of a coin. Please can you analyse the images and populate a JSON object with the following values:
@@ -88,14 +88,10 @@ async def analyse_coin(images: list[UploadFile]):
     
     Return ONLY valid JSON. Do not include markdown or formatting.
     """
-    
-    # Must be 2 images provided
-    if len(images) != 2:
-        return {"error": "Please upload exactly 2 images"}
 
     # Read files
-    image_bytes_1 = await images[0].read()
-    image_bytes_2 = await images[1].read()
+    image_bytes_1 = await image1.read()
+    image_bytes_2 = await image2.read()
     image1 = Image.open(BytesIO(image_bytes_1))
     image2 = Image.open(BytesIO(image_bytes_2))
 

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Get the true width of the device display -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     </head>
 
@@ -21,7 +24,12 @@
                 <div>Upload images of both sides of the coin</div>
                 <div id="form-error" class="muted"></div>
                 <form id="coin-form" enctype="multipart/form-data">
-                    <input name="images" type="file" multiple>
+                    <label>Front Side (Obverse)</label>
+                    <input name="image1" type="file" accept="image/*" capture="environment">
+
+                    <label>Back Side (Reverse)</label>
+                    <input name="image2" type="file" accept="image/*" capture="environment">
+
                     <input type="submit" value="Identify Coin">
                 </form>
             </div>

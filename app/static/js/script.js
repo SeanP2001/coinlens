@@ -2,16 +2,18 @@
 document.getElementById("coin-form").addEventListener("submit", async (e) => {
     e.preventDefault(); // stop the page from reloading
 
-    // Get the data (coin images) from the form
+    // Get the form and the data from the form
     const form = e.target;
     const formData = new FormData(form);
 
-    const fileInput = form.querySelector('input[name="images"]');
-    const files = fileInput.files;
+    // Get the image files from the form
+    const fileInput1 = form.querySelector('input[name="image1"]');
+    const fileInput2 = form.querySelector('input[name="image2"]');
+    const files = [fileInput1.files[0], fileInput2.files[0]];
 
-    // Ensure that exactly 2 images are given
+    // Ensure that both images are given
     const errorDiv = document.getElementById("form-error");
-    if (files.length !== 2) {
+    if (!fileInput1.files[0] || !fileInput2.files[0]) {
         errorDiv.innerText = "Please upload exactly 2 images (front and back of the coin).";
         return;
     }
